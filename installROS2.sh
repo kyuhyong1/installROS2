@@ -54,7 +54,8 @@ sudo apt-get install -y --no-install-recommends \
 		python3-rosinstall-generator \
 		libasio-dev \
 		libtinyxml2-dev \
-		libcunit1-dev
+		libcunit1-dev\
+		qttools5-dev
 sudo rm -rf /var/lib/apt/lists/*
   
 # install some pip packages needed for testing
@@ -70,7 +71,8 @@ python3 -m pip install -U \
 		flake8-quotes \
 		pytest-repeat \
 		pytest-rerunfailures \
-		pytest
+		pytest \
+		lark
 
 # compile yaml-cpp-0.6, which some ROS packages may use (but is not in the 18.04 apt repo)
 git clone --branch yaml-cpp-0.6.0 https://github.com/jbeder/yaml-cpp yaml-cpp-0.6 && \
@@ -91,8 +93,7 @@ cat ros2.${ROS_DISTRO}.${ROS_PKG}.rosinstall && \
     vcs import src < ros2.${ROS_DISTRO}.${ROS_PKG}.rosinstall"
 
 # download unreleased packages     
-sudo sh -c "git clone --branch ros2 https://github.com/Kukanani/vision_msgs ${ROS_BUILD_ROOT}/src/vision_msgs && \
-    git clone --branch ${ROS_DISTRO} https://github.com/ros2/demos demos && \
+sudo sh -c "git clone --branch ${ROS_DISTRO} https://github.com/ros2/demos demos && \
     cp -r demos/demo_nodes_cpp ${ROS_BUILD_ROOT}/src && \
     cp -r demos/demo_nodes_py ${ROS_BUILD_ROOT}/src && \
     rm -r -f demos"
@@ -106,7 +107,7 @@ sudo rosdep init
     sudo rm -rf /var/lib/apt/lists/*
 
 # build it!
-sudo mkdir -p ${ROS_INSTALL_ROOT}
+sudo mkdir -p ${qttools5-dev}
 # sudo required to write build logs
 sudo colcon build --merge-install --install-base ${ROS_INSTALL_ROOT}
 # We do this twice to make sure everything gets built
