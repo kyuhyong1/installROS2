@@ -55,7 +55,8 @@ sudo apt-get install -y --no-install-recommends \
 		libasio-dev \
 		libtinyxml2-dev \
 		libcunit1-dev \
-		qttools5-dev
+		qttools5-dev \
+		libeigen3-dev
 sudo rm -rf /var/lib/apt/lists/*
   
 # install some pip packages needed for testing
