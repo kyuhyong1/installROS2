@@ -75,6 +75,8 @@ python3 -m pip install -U \
 		pytest \
 		lark
 
+pip3 install netifaces pyyaml
+
 # compile yaml-cpp-0.6, which some ROS packages may use (but is not in the 18.04 apt repo)
 git clone --branch yaml-cpp-0.6.0 https://github.com/jbeder/yaml-cpp yaml-cpp-0.6 && \
     cd yaml-cpp-0.6 && \
@@ -108,6 +110,8 @@ sudo rosdep init
     rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y --skip-keys "console_bridge fastcdr fastrtps rti-connext-dds-5.3.1 urdfdom_headers qt_gui" && \
     sudo rm -rf /var/lib/apt/lists/*
 
+# Ignore some package
+sudo touch ${ROS_BUILD_ROOT}/src/vision_msgs/COLCON_IGNORE
 # build it!
 sudo mkdir -p ${ROS_INSTALL_ROOT}
 # sudo required to write build logs
